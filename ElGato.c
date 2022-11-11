@@ -2,8 +2,8 @@
 #include<stdlib.h>
 int main(){
     printf("EL JUEGO DEL GATO");
-    printf ("Prueba 3");
-    printf("Se guardan los cambios?")
+    printf("Se supone que seguiria programando aqui");
+
 
 
 
