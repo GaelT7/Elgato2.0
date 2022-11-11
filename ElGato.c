@@ -3,6 +3,7 @@
 int main(){
     printf("EL JUEGO DEL GATO");
     printf ("Prueba 3");
+    printf("Se guardan los cambios?")
 
 
 
