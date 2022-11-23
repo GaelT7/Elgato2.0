@@ -4,26 +4,37 @@
 struct jugador
 {
     char icono,nombre[10];
-    int casilla,ganar[9];
 }Jugador_1,Jugador_2;
+
+int ganar(char tablero[3][3],char icono)
+{
+    int band=0;
+    for(int i=0;i<3;i++)
+    {
+        for(int j=0; j<3;j++)
+        {
+            if(tablero[0][0]==icono && tablero[0][1]==icono && tablero[0][2]==icono ||
+               tablero[0][0]==icono && tablero[1][0]==icono && tablero[2][0]==icono ||
+               tablero[0][0]==icono && tablero[1][1]==icono && tablero[2][2]==icono ||
+               tablero[0][1]==icono && tablero[1][1]==icono && tablero[2][1]==icono ||
+               tablero[0][2]==icono && tablero[1][2]==icono && tablero[2][2]==icono ||
+               tablero[1][0]==icono && tablero[1][1]==icono && tablero[1][2]==icono ||
+               tablero[2][0]==icono && tablero[2][1]==icono && tablero[2][2]==icono ||
+               tablero[0][2]==icono && tablero[1][1]==icono && tablero[2][0]==icono)
+                band=1;
+        }
+    }
+    return band;
+}
 
 int main(){
 
-    char op,tablero[3][3];
-    int tablero_aux[3][3],pos=1,emp=0,casilla,cambio_jugador=0,band=0;
+    char op,tablero[3][3]={'1','2','3','4','5','6','7','8','9'},casilla;
+    int pos=1,emp=0,cambio_jugador=0,band=0;
 
-    for(int i=0;i<3;i++)
-    {
-        printf("\n");
-        for(int j=0;j<3;j++)
-        {
-            tablero_aux[i][j] = pos;
-            pos++;
-            printf(" [%i]",tablero_aux[i][j]);
-        }
-    }
-    Jugador_1.icono='x';
-    Jugador_2.icono='o';
+
+    Jugador_1.icono='X';
+    Jugador_2.icono='O';
     printf("\n\nJugador 1: %c",Jugador_1.icono);
     printf("\n\nJugador 2: %c\n\n",Jugador_2.icono);
 
@@ -32,7 +43,6 @@ int main(){
         printf("\n");
         for(int j=0;j<3;j++)
         {
-            tablero[i][j]=' ';
             printf(" [%c]",tablero[i][j]);
         }
     }
@@ -52,27 +62,31 @@ int main(){
             case '1':
                 do
                 {
+
                     if(cambio_jugador == 0)
                     {
+
                         do
                         {
                             printf("\ningresa una casilla jugador 1: ");
                             fflush(stdin);
-                            scanf(" %i",&Jugador_1.casilla);
+                            scanf(" %c",&casilla);
+
                             for(int i=0;i<3;i++)
                             {
                                 printf("\n");
                                 for(int j=0;j<3;j++)
                                 {
-                                    if(tablero_aux[i][j] == Jugador_1.casilla)
+                                    if(tablero[i][j] == casilla)
                                     {
                                         tablero[i][j] = Jugador_1.icono;
-                                        tablero_aux[i][j] = -1;
                                         band=1;
                                     }
                                     printf(" [%c]",tablero[i][j]);
+
                                 }
                             }
+
                             if(band==0)
                             {
                                 printf("\n\nCasilla no encontrada\n");
@@ -80,28 +94,35 @@ int main(){
                         }while(band!=1);
                         band=0;
                         cambio_jugador=1;
+                        if(ganar(tablero,Jugador_1.icono)==1)
+                            {
+                                printf("\nGANO JUGADOR 1");
+                                break;
+                            }
                     }
                     else
                     {
+
                         do
                         {
                             printf("\ningresa una casilla jugador 2: ");
                             fflush(stdin);
-                            scanf(" %i",&Jugador_2.casilla);
+                            scanf(" %c",&casilla);
+
                             for(int i=0;i<3;i++)
                             {
                                 printf("\n");
                                 for(int j=0;j<3;j++)
                                 {
-                                    if(tablero_aux[i][j] == Jugador_2.casilla)
+                                    if(tablero[i][j] == casilla)
                                     {
                                         tablero[i][j] = Jugador_2.icono;
-                                        tablero_aux[i][j] = -1;
                                         band=1;
                                     }
                                     printf(" [%c]",tablero[i][j]);
                                 }
                             }
+
                             if(band==0)
                             {
                                 printf("\n\nCasilla no encontrada\n");
@@ -109,6 +130,11 @@ int main(){
                         }while(band!=1);
                         band=0;
                         cambio_jugador=0;
+                        if(ganar(tablero,Jugador_2.icono)==1)
+                            {
+                                printf("\nGANO JUGADOR 2");
+                                break;
+                            }
                     }
                     emp++;
 
